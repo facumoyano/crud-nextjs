@@ -22,15 +22,20 @@ const Navbar = () => {
     return (
         <Box as="nav" bg={useColorModeValue("gray.600", "gray.200")} p={4}>
             <Flex maxW="1200px" margin="0 auto" alignItems="flex-end">
-                <Box display="flex" alignItems="center" gap={2}>
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    gap={2}
+                    flexDirection={{ base: "column", md: "row" }}
+                >
                     <Text
                         color={useColorModeValue("white", "green.400")}
                         fontWeight="600"
-                        fontSize="2xl"
+                        fontSize={{ base: "xl", md: "2xl" }}
                         cursor="pointer"
                         onClick={() => router.push("/")}
                     >
-                        CRUD
+                        TASKS CRUD
                     </Text>
                     <Text
                         color={useColorModeValue("white", "green.400")}

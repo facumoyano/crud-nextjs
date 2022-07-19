@@ -7,7 +7,8 @@ import {
     Textarea,
     Button,
     Heading,
-    useColorModeValue
+    useColorModeValue,
+    Select
 } from "@chakra-ui/react";
 import { useCrud } from "../context/CrudProvider";
 import { useRouter } from "next/router";
@@ -17,6 +18,7 @@ const FormTask = () => {
     const [tarea, setTarea] = useState({
         nombre: "",
         descripcion: "",
+        estado: ''
     });
 
     
@@ -36,7 +38,7 @@ const FormTask = () => {
         e.preventDefault();
         if (nombre.length >= 1) {
             if (!router.query.id) {
-                crearTarea(nombre, descripcion);
+                crearTarea(nombre, descripcion, estado);
             } else {
                 editarTarea(router.query.id, tarea);
             }
@@ -53,13 +55,14 @@ const FormTask = () => {
                 setTarea({
                     nombre: tareaEncontrada.nombre,
                     descripcion: tareaEncontrada.descripcion,
+                    estado: tareaEncontrada.estado
                 });
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [router.query.id]);
 
-    const { nombre, descripcion } = tarea;
+    const { nombre, descripcion, estado } = tarea;
 
     return (
         <>
@@ -72,12 +75,14 @@ const FormTask = () => {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.3, duration: 0.5 }}
+                style={{margin: 20}}
             >
                 <Box
                     bg="gray.600"
                     maxW="600px"
                     margin="0 auto"
                     borderRadius="5px"
+                    
                 >
                     <Box
                         as="form"
@@ -109,6 +114,21 @@ const FormTask = () => {
                                 onChange={(e) => handleChange(e)}
                                 value={descripcion}
                             />
+                        </FormControl>
+                        <FormControl color="white">
+                            <FormLabel>Estado: </FormLabel>
+                            <Select
+                                
+                                bg={useColorModeValue("gray.700", "gray.200")}
+                                border="none"
+                                name="estado"
+                                onChange={(e) => handleChange(e)}
+                                value={estado}
+                            >
+                                <option style={{backgroundColor: 'white', color:'black'}} value=''>--Selecciona una opción--</option>
+                                <option style={{backgroundColor: 'white', color:'black'}} value='finalizada'>Finalizada</option>
+                                <option style={{backgroundColor: 'white', color:'black'}} value='porhacer'>Por hacer</option>
+                            </Select>
                         </FormControl>
                         <Button
                             bg="green.400"

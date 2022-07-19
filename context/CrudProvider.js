@@ -6,8 +6,9 @@ const CrudContext = createContext()
 const CrudProvider = ({children}) => {
     const [tareas, setTareas] = useState([])
 
-   const crearTarea = (nombre, descripcion) => {
-    setTareas([...tareas, {id: uuidv4(), nombre, descripcion}])
+   const crearTarea = (nombre, descripcion, estado) => {
+    setTareas([...tareas, {id: uuidv4(), nombre, descripcion, estado}])
+    
    }
 
    const eliminarTarea = (id) => {
