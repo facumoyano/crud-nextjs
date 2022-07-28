@@ -15,17 +15,10 @@ import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 
 const FormTask = () => {
-    const [tarea, setTarea] = useState({
-        nombre: "",
-        descripcion: "",
-        estado: ''
-    });
-
-    
 
     const router = useRouter();
 
-    const { crearTarea, editarTarea, tareas } = useCrud();
+    const { crearTarea, editarTarea, tareas, tarea, setTarea } = useCrud();
 
     const handleChange = (e) => {
         setTarea({
@@ -34,7 +27,7 @@ const FormTask = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (nombre.length >= 1) {
             if (!router.query.id) {
@@ -59,6 +52,13 @@ const FormTask = () => {
                 });
             }
         }
+        // if(!router.query.id) {
+        //     setTarea({
+        //         nombre: "",
+        // descripcion: "",
+        // estado: "",
+        //     })
+        // }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [router.query.id]);
 

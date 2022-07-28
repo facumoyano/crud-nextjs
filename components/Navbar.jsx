@@ -13,9 +13,10 @@ import { RiAddFill } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { useCrud } from "../context/CrudProvider";
 import { FaSun, FaMoon } from "react-icons/fa";
+import { BiLogOut } from "react-icons/bi";
 
 const Navbar = () => {
-    const { tareas } = useCrud();
+    const { tareas, currentUser, logout } = useCrud();
     const router = useRouter();
     const { colorMode, toggleColorMode } = useColorMode();
 
@@ -59,16 +60,34 @@ const Navbar = () => {
                         _hover={{ bg: "transparent" }}
                         _active={{ bg: "transparent" }}
                     />
-
-                    <Button
-                        leftIcon={<RiAddFill />}
-                        bg="green.400"
-                        color="white"
-                        _hover={{ bg: "green.300" }}
-                        onClick={() => router.push("/formTask")}
+                    <Box
+                        display="flex"
+                        flexDirection={{ base: "column", md: "row" }}
+                        gap={3}
                     >
-                        Crear tarea
-                    </Button>
+                        {currentUser && (
+                            <Button
+                                leftIcon={<RiAddFill />}
+                                bg="green.400"
+                                color="white"
+                                _hover={{ bg: "green.300" }}
+                                onClick={() => router.push("/formTask")}
+                            >
+                                Crear tarea
+                            </Button>
+                        )}
+                        {currentUser && (
+                            <Button
+                                bg="green.400"
+                                color="white"
+                                _hover={{ bg: "green.300" }}
+                                onClick={logout}
+                                leftIcon={<BiLogOut />}
+                            >
+                                Logout
+                            </Button>
+                        )}
+                    </Box>
                 </Box>
             </Flex>
         </Box>
